@@ -5,15 +5,10 @@ from marshmallow_sqlalchemy import ModelSchema
 from marshmallow import fields
 from .events import EventSchema
 
-class Role(enum.Enum):
-    admin = "admin"
-    promoter = "promoter"
-
 class User(db.Model):
     __tablename__ = "users"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    role = db.Column(db.Enum(Role), server_default="promoter")
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(120), nullable=False)
     # is_verified = db.Column(db.Boolean, nullable=False, default=False)

@@ -29,11 +29,10 @@ class ProductionConfig(Config):
 class DevelopmentConfig(Config):
     DEBUG = True
     SQLALCHEMY_ECHO = False
-    SQLALCHEMY_DATABASE_URI = "sqlite:///" + os.path.abspath("example.db")
+    SQLITE_DB = os.getenv("SQLITE_DB", "example.db")
+    SQLALCHEMY_DATABASE_URI = "sqlite:///" + os.path.abspath(SQLITE_DB)
     SECRET_KEY = os.getenv("SECRET_KEY", None)
     SECURITY_PASSWORD_SALT = os.getenv("SECURITY_PASSWORD_SALT", None)
-    PORT = 3000
-    HOST = "localhost"
 
     MAIL_DEFAULT_SENDER = os.getenv("EMAIL_SENDER")
     MAIL_SERVER = os.getenv("EMAIL_SERVER")
