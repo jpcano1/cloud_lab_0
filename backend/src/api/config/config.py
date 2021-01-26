@@ -4,18 +4,18 @@ from dotenv import load_dotenv, find_dotenv
 load_dotenv(find_dotenv())
 
 class Config(object):
-    POSTGRES_USERNAME = os.getenv("POSTGRES_USER", None)
-    POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD", None)
-    POSTGRES_HOST = os.getenv("POSTGRES_HOST", None)
-    POSTGRES_DB = os.getenv("POSTGRES_DB", None)
-
     DEBUG = False
     TESTING = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     UPLOAD_FOLDER = "images"
 
 class ProductionConfig(Config):
-    SQLALCHEMY_DATABASE_URI = "<Production DB URL>"
+    POSTGRES_USERNAME = os.getenv("POSTGRES_USER")
+    POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD")
+    POSTGRES_HOST = os.getenv("POSTGRES_HOST")
+    POSTGRES_DB = os.getenv("POSTGRES_DB")
+
+    SQLALCHEMY_DATABASE_URI = f"postgresql://{POSTGRES_USERNAME}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:5432/{POSTGRES_DB}"
 
     MAIL_DEFAULT_SENDER = os.getenv("EMAIL_SENDER")
     MAIL_SERVER = os.getenv("EMAIL_SERVER")
@@ -26,25 +26,14 @@ class ProductionConfig(Config):
     MAIL_USE_SSL = os.getenv("EMAIL_USE_SSL")
     MAIL_DEBUG = False
 
-    UPLOAD_FOLDER = None
-
 class DevelopmentConfig(Config):
     DEBUG = True
     SQLALCHEMY_ECHO = False
-    SQLALCHEMY_DATABASE_URI = f"postgresql://{Config.POSTGRES_USERNAME}:{Config.POSTGRES_PASSWORD}@{Config.POSTGRES_HOST}:5432/{Config.POSTGRES_DB}"
+    SQLALCHEMY_DATABASE_URI = "sqlite:///" + os.path.abspath("example.db")
     SECRET_KEY = os.getenv("SECRET_KEY", None)
     SECURITY_PASSWORD_SALT = os.getenv("SECURITY_PASSWORD_SALT", None)
-
-    # Localhost configurations
-    # MAIL_DEFAULT_SENDER = "test@email.com"
-    # MAIL_SERVER = "localhost"
-    # MAIL_PORT = 1025
-    # MAIL_USERNAME = None
-    # MAIL_PASSWORD = None
-    # MAIL_USE_TLS = True
-    # MAIL_USE_SSL = False
-    # MAIL_SUPPRESS_SEND = True
-    # MAIL_DEBUG = True
+    PORT = 3000
+    HOST = "localhost"
 
     MAIL_DEFAULT_SENDER = os.getenv("EMAIL_SENDER")
     MAIL_SERVER = os.getenv("EMAIL_SERVER")
