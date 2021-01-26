@@ -14,7 +14,7 @@ class Event(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(120), unique=True, nullable=False)
-    category = db.Column(db.Enum(EventCategory), server_default=EventCategory.conference)
+    category = db.Column(db.Enum(EventCategory), nullable=False, server_default="conference")
     begin_date = db.Column(db.DateTime, nullable=False)
     end_date = db.Column(db.DateTime, nullable=False)
     address = db.Column(db.String(120), nullable=False)
