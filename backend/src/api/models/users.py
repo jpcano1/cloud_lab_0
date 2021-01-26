@@ -3,6 +3,7 @@ import enum
 from passlib.hash import pbkdf2_sha256 as sha256
 from marshmallow_sqlalchemy import ModelSchema
 from marshmallow import fields
+from .events import EventSchema
 
 class Role(enum.Enum):
     admin = "admin"
@@ -14,7 +15,9 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     role = db.Column(db.Enum(Role), server_default=Role.promoter)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    is_verified = db.Column(db.Boolean, nullable=False, default=False)
+    password = db.Column(db.String(120), nullable=False)
+    # is_verified = db.Column(db.Boolean, nullable=False, default=False)
+    events = db.relationship("Event", backref="User", cascade="all, delete-orphan")
 
     def create(self):
         db.session.add(self)
@@ -40,3 +43,11 @@ class UserSchema(ModelSchema):
 
     id = fields.Integer(dump_only=True)
     email = fields.Email(required=True)
+    events = fields.Nested(
+        EventSchema,
+        many=True,
+        only=[
+            "id", "name", "category",
+            "begin_date", "end_date"
+        ]
+    )

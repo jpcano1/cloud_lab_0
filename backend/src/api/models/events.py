@@ -19,6 +19,7 @@ class Event(db.Model):
     end_date = db.Column(db.DateTime, nullable=False)
     address = db.Column(db.String(120), nullable=False)
     virtual = db.Column(db.Boolean, nullable=False, default=True)
+    owner = db.Column(db.Integer, db.ForeignKey("users.id"))
 
     def create(self):
         db.session.add(self)
@@ -38,4 +39,5 @@ class EventSchema(ModelSchema):
     begin_date = fields.String(required=True)
     end_date = fields.String(required=True)
     address = fields.String(required=True)
-    virtual = fields.String()
+    virtual = fields.Boolean(required=True)
+    owner_id = fields.Integer()
