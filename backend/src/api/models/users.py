@@ -1,5 +1,4 @@
 from ..utils import db
-import enum
 from passlib.hash import pbkdf2_sha256 as sha256
 from marshmallow_sqlalchemy import ModelSchema
 from marshmallow import fields
@@ -38,6 +37,7 @@ class UserSchema(ModelSchema):
 
     id = fields.Integer(dump_only=True)
     email = fields.Email(required=True)
+    password = fields.String(load_only=True, required=True)
     events = fields.Nested(
         EventSchema,
         many=True,
