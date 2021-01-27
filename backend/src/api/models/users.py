@@ -1,5 +1,5 @@
 from ..utils import db
-from passlib.hash import pbkdf2_sha256 as sha256
+from flask_bcrypt import generate_password_hash, check_password_hash
 from marshmallow_sqlalchemy import ModelSchema
 from marshmallow import fields
 from .events import EventSchema
@@ -24,11 +24,11 @@ class User(db.Model):
 
     @staticmethod
     def generate_hash(password):
-        return sha256.hash(password)
+        return generate_password_hash(password).decode("utf-8")
 
     @staticmethod
-    def verify_hash(password, _hash):
-        return sha256.verify(password, _hash)
+    def verify_hash(hash_, password):
+        return check_password_hash(hash_, password)
 
 class UserSchema(ModelSchema):
     class Meta(ModelSchema.Meta):

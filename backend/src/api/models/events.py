@@ -1,6 +1,6 @@
 from ..utils import db
 from marshmallow_sqlalchemy import ModelSchema
-from marshmallow import fields, validate
+from marshmallow import fields
 from marshmallow_enum import EnumField
 import enum
 

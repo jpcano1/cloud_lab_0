@@ -2,6 +2,7 @@ from flask_restful import Resource
 from flask import request
 from ..utils import response_with, responses
 from ..utils import db
+from flask_jwt_extended import jwt_required, get_jwt_identity
 
 from marshmallow.exceptions import ValidationError
 from sqlalchemy.exc import IntegrityError
@@ -15,17 +16,36 @@ import copy
 from datetime import datetime
 
 class EventDetail(Resource):
+    @jwt_required
     def get(self, event_id):
-        fetched = EventModel.query.get_or_404(event_id)
+        owner_id = get_jwt_identity()
+        fetched = EventModel.query.filter_by(
+            id=event_id, owner=owner_id
+        ).first()
+
+        if not fetched:
+            return response_with(responses.SERVER_ERROR_404, value={
+                "error_message": "Resource does not exists"
+            })
         event_schema = EventSchema()
         event = event_schema.dump(fetched)
         return response_with(responses.SUCCESS_200, value={
             "event": event
         })
 
+    @jwt_required
     def put(self, event_id):
         data = request.get_json()
-        fetched = EventModel.query.get_or_404(event_id)
+
+        owner_id = get_jwt_identity()
+        fetched = EventModel.query.filter_by(
+            id=event_id, owner=owner_id
+        ).first()
+
+        if not fetched:
+            return response_with(responses.SERVER_ERROR_404, value={
+                "error_message": "Resource does not exists"
+            })
         try:
             fetched.name = data["name"]
             fetched.category = data["category"]
@@ -49,9 +69,19 @@ class EventDetail(Resource):
             "event": event
         })
 
+    @jwt_required
     def patch(self, event_id):
         data = request.get_json()
-        fetched = EventModel.query.get_or_404(event_id)
+
+        owner_id = get_jwt_identity()
+        fetched = EventModel.query.filter_by(
+            id=event_id, owner=owner_id
+        ).first()
+
+        if not fetched:
+            return response_with(responses.SERVER_ERROR_404, value={
+                "error_message": "Resource does not exists"
+            })
         fetched_copy = copy.copy(fetched)
 
         fetched.name = data.get("name", fetched_copy.name)
@@ -74,23 +104,38 @@ class EventDetail(Resource):
             "event": event
         })
 
+    @jwt_required
     def delete(self, event_id):
-        fetched = EventModel.query.get_or_404(event_id)
+        owner_id = get_jwt_identity()
+        fetched = EventModel.query.filter_by(
+            id=event_id, owner=owner_id
+        ).first()
+
+        if not fetched:
+            return response_with(responses.SERVER_ERROR_404, value={
+                "error_message": "Resource does not exists"
+            })
         db.session.delete(fetched)
         db.session.commit()
         return response_with(responses.SUCCESS_204)
 
 class Event(Resource):
+    @jwt_required
     def get(self):
-        fetched = EventModel.query.all()
+        owner_id = get_jwt_identity()
+        fetched = EventModel.query.filter_by(owner=owner_id)
         event_schema = EventSchema(many=True)
         events = event_schema.dump(fetched)
         return response_with(responses.SUCCESS_200, value={
             "events": events
         })
 
+    @jwt_required
     def post(self):
+        owner_id = get_jwt_identity()
         data = request.get_json()
+
+        data["owner"] = owner_id
         event_schema = EventSchema()
         try:
             event = event_schema.load(data, session=db.session)

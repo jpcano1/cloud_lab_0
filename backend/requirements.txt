@@ -10,4 +10,4 @@ flask-jwt-extended
 Flask-Mail
 werkzeug
 flask-restful
-passlib
+flask-bcrypt
