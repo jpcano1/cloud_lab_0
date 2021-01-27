@@ -6,7 +6,10 @@ import { AuthSignUpComponent } from './auth-sign-up/auth-sign-up.component';
 
 
 @NgModule({
-  declarations: [AuthLoginComponent, AuthSignUpComponent],
+  declarations: [
+    AuthLoginComponent,
+    AuthSignUpComponent
+  ],
   imports: [
     CommonModule
   ]
