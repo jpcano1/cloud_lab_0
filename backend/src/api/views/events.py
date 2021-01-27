@@ -12,6 +12,8 @@ from ..models import EventSchema
 
 import copy
 
+from datetime import datetime
+
 class EventDetail(Resource):
     def get(self, event_id):
         fetched = EventModel.query.get_or_404(event_id)
@@ -27,13 +29,17 @@ class EventDetail(Resource):
         try:
             fetched.name = data["name"]
             fetched.category = data["category"]
-            fetched.begin_date = data["begin_date"]
-            fetched.end_date = data["end_date"]
+            fetched.begin_date = datetime.strptime(data["begin_date"], "%d/%m/%Y")
+            fetched.end_date = datetime.strptime(data["end_date"], "%d/%m/%Y")
             fetched.address = data["address"]
             fetched.virtual = data["virtual"]
         except KeyError:
             return response_with(responses.INVALID_INPUT_422, value={
                 "error_message": "Data incomplete, use PATCH instead"
+            })
+        except ValueError:
+            return response_with(responses.INVALID_INPUT_422, value={
+                "error_message": "Please, use valid date ranges"
             })
         db.session.add(fetched)
         db.session.commit()
@@ -50,8 +56,10 @@ class EventDetail(Resource):
 
         fetched.name = data.get("name", fetched_copy.name)
         fetched.category = data.get("category", fetched_copy.category)
-        fetched.begin_date = data.get("begin_date", fetched_copy.begin_date)
-        fetched.end_date = data.get("end_date", fetched_copy.end_date)
+        if data.get("begin_date"):
+            fetched.begin_date = datetime.strptime(data["begin_date"], "%d/%m/%Y")
+        if data.get("end_date"):
+            fetched.begin_date = datetime.strptime(data["end_date"], "%d/%m/%Y")
         fetched.address = data.get("address", fetched_copy.address)
         fetched.virtual = data.get("virtual", fetched_copy.virtual)
 
