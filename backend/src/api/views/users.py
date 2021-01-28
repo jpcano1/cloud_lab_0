@@ -10,9 +10,9 @@ from datetime import timedelta
 class SignUp(Resource):
     def post(self):
         data = request.get_json()
-        if not data.get("password"):
+        if not data.get("password") or not data.get("email"):
             return response_with(responses.INVALID_INPUT_422, value={
-                "error_message": "No password sent"
+                "error_message": "No email or password sent"
             })
         data["password"] = UserModel.generate_hash(data["password"])
         user_schema = UserSchema()

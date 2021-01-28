@@ -11,3 +11,4 @@ Flask-Mail
 werkzeug
 flask-restful
 flask-bcrypt
+flask-cors
