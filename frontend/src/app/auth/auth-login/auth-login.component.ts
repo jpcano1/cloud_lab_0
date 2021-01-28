@@ -66,10 +66,10 @@ export class AuthLoginComponent implements OnInit {
           this.cookie.set("token", response.access_token);
           localStorage.setItem("role", "USER");
           this.auth.setRole("USER");
-          alert(response.message);
-          this.router.navigateByUrl("/")
+          this.router.navigateByUrl("event")
             .then(result => console.log(result))
             .catch(error => console.log(error));
+          alert(response.message);
         }, error => alert(error.error.error_message)
         );
     }
