@@ -19,11 +19,22 @@ const routes: Routes = [
         component: AuthLoginComponent
       }
     ],
-    canActivate: [NgxPermissionsGuard]
+    canActivate: [NgxPermissionsGuard],
+    data: {
+      permissions: {
+        only: ["GUEST"]
+      }
+    },
   },
   {
     path: "",
-    component: EventListComponent
+    component: EventListComponent,
+    canActivate: [NgxPermissionsGuard],
+    data: {
+      permissions: {
+        only: ["USER"]
+      }
+    },
   },
   {
     path: "event",
@@ -32,7 +43,17 @@ const routes: Routes = [
         path: "",
         component: EventListComponent
       }
-    ]
+    ],
+    canActivate: [NgxPermissionsGuard],
+    data: {
+      permissions: {
+        only: ["USER"]
+      }
+    },
+  },
+  {
+    path: "*",
+    redirectTo: ""
   }
 ];
 

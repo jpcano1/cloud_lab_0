@@ -4,6 +4,7 @@ import { AuthService } from '../auth.service';
 import * as $ from "jquery";
 import {IUser} from '../../interfaces';
 import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-auth-login',
@@ -18,7 +19,8 @@ export class AuthLoginComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private auth: AuthService,
-              private cookie: CookieService) {
+              private cookie: CookieService,
+              private router: Router) {
     let password = this.cookie.get("password");
     this.form = this.formBuilder.group({
       email: new FormControl('juan@hotmail.com', [
@@ -65,6 +67,9 @@ export class AuthLoginComponent implements OnInit {
           localStorage.setItem("role", "USER");
           this.auth.setRole("USER");
           alert(response.message);
+          this.router.navigateByUrl("/")
+            .then(result => console.log(result))
+            .catch(error => console.log(error));
         }, error => alert(error.error.error_message)
         );
     }
