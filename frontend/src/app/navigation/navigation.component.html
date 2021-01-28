@@ -15,14 +15,10 @@
         <li class="nav-item" *ngxPermissionsOnly="['USER']">
           <a routerLink="/event" class="nav-link">Events</a>
         </li>
-        <li class="nav-item" *ngxPermissionsOnly="['USER']">
-          <a routerLink="/event/create" class="nav-link">Create Event</a>
-        </li>
         <li *ngxPermissionsOnly="['USER']"
-          class="nav-item btn btn-outline-info mr-0"
+          class="nav-item btn btn-outline-info mx-2"
             (click)="logout()">
           Log Out
-          <i class="mr-2 fas fa-door-open"></i>
         </li>
       </ul>
     </div>
