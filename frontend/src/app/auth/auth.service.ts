@@ -42,8 +42,8 @@ export class AuthService {
     this.cookie.deleteAll();
     this.setRole("GUEST");
     this.router.navigateByUrl("/")
-      .then(result => console.log(result))
-      .catch(error => console.log(error));
+      .then(result => result)
+      .catch(error => error);
     localStorage.removeItem("role");
   }
 
