@@ -5,6 +5,7 @@ import { AuthSignUpComponent } from '../auth/auth-sign-up/auth-sign-up.component
 import { AuthLoginComponent } from '../auth/auth-login/auth-login.component';
 import { EventListComponent } from '../event/event-list/event-list.component';
 import { NgxPermissionsGuard } from 'ngx-permissions';
+import {EventCreateComponent} from '../event/event-create/event-create.component';
 
 const routes: Routes = [
   {
@@ -42,6 +43,10 @@ const routes: Routes = [
       {
         path: "",
         component: EventListComponent
+      },
+      {
+        path: "create",
+        component: EventCreateComponent
       }
     ],
     canActivate: [NgxPermissionsGuard],
