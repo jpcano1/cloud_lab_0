@@ -13,8 +13,6 @@ import { ModalDialogService, SimpleModalComponent } from 'ngx-modal-dialog';
 })
 export class AuthSignUpComponent implements OnInit {
 
-  credentials = {}
-
   form: FormGroup;
 
   isSubmitted: boolean = false;
@@ -56,8 +54,7 @@ export class AuthSignUpComponent implements OnInit {
     let password = $('#pass'),
       toggle = $('#show-password');
 
-    toggle.click(function()
-    {
+    toggle.click(function() {
       toggle.is(':checked') ? password.attr('type', 'text'):password.attr('type', 'password');
     });
   }

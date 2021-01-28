@@ -1,1 +1,44 @@
-<p>auth-login works!</p>
+<div class="container-fluid">
+  <div class="row justify-content-center align-items-center">
+    <!--    .col-lg-6.col-sm-8.col-10-->
+    <!-- card -->
+    <div class="col-lg-6 col-md-8 col-10">
+      <div class="mt-3 card bg-transparent mb-3">
+        <h5 class="card-header text-center">Log In</h5>
+        <form action="POST" class="card-body" [formGroup]="form">
+          <div class="row justify-content-center">
+            <div class="form-group text-center col-lg-10 col-12">
+              <label for="email">Email Address</label>
+              <input type="text" class="form-control" placeholder="Email" id="email" formControlName="email"
+                     [class.is-invalid]="emailValidation()" [class.is-valid]="emailValid()">
+              <div *ngIf="emailValidation()">
+                <span class="text-danger">Submit a valid email</span>
+              </div>
+            </div>
+          </div>
+          <div class="row justify-content-center">
+            <div class="form-group text-center col-lg-10 col-12">
+              <label for="pass">Password</label>
+              <input type="password" class="form-control" id="pass" placeholder="password" formControlName="password"
+                     [class.is-invalid]="passwordValidation()" [class.is-valid]="passwordValid()">
+              <div *ngIf="passwordValidation()">
+                <span class="text-danger">Submit a valid password</span>
+              </div>
+              <label for="save-password" class="mt-3">
+                <input type="checkbox" id="save-password">
+                Remember password
+              </label>
+            </div>
+          </div>
+          <div class="row justify-content-center">
+            <div class="text-center">
+              <button class="btn btn-outline-success"
+                      (click)="onLoginSubmit()"
+                      type="submit">Enviar</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

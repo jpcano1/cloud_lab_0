@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {RouterModule, Routes} from '@angular/router';
-import {AuthSignUpComponent} from '../auth/auth-sign-up/auth-sign-up.component';
-import {AuthLoginComponent} from '../auth/auth-login/auth-login.component';
+import { RouterModule, Routes } from '@angular/router';
+import { AuthSignUpComponent } from '../auth/auth-sign-up/auth-sign-up.component';
+import { AuthLoginComponent } from '../auth/auth-login/auth-login.component';
+import { EventListComponent } from '../event/event-list/event-list.component';
+import { NgxPermissionsGuard } from 'ngx-permissions';
 
 const routes: Routes = [
   {
@@ -16,11 +18,21 @@ const routes: Routes = [
         path: "login",
         component: AuthLoginComponent
       }
-    ]
+    ],
+    canActivate: [NgxPermissionsGuard]
   },
   {
     path: "",
-    component: AuthLoginComponent
+    component: EventListComponent
+  },
+  {
+    path: "event",
+    children: [
+      {
+        path: "",
+        component: EventListComponent
+      }
+    ]
   }
 ];
 
