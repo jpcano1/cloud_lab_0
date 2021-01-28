@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewContainerRef} from '@angular/core';
 import { FormBuilder, FormControl,
   FormGroup, Validators } from '@angular/forms';
 import { IUser } from '../../interfaces';
 import * as $ from "jquery";
+import { AuthService } from '../auth.service';
+import { ModalDialogService, SimpleModalComponent } from 'ngx-modal-dialog';
 
 @Component({
   selector: 'app-auth-sign-up',
@@ -17,21 +19,17 @@ export class AuthSignUpComponent implements OnInit {
 
   isSubmitted: boolean = false;
 
-  userLogged: IUser;
-
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder,
+              private auth: AuthService) {
     this.form = this.formBuilder.group({
-      email: new FormControl('', [
+      email: new FormControl('juan@hotmail.com', [
         Validators.required,
         Validators.pattern(/^([\w\-\.]+)@((\[([0-9]{1,3}\.){3}[0-9]{1,3}\])|(([\w\-]+\.)+)([a-zA-Z]{2,4}))$/)
       ]),
-      password: new FormControl('', [
+      password: new FormControl('hola', [
         Validators.required,
-        // Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])*.{8,10}$/)
-      ]),
-      password_confirmation: new FormControl('', [
-        Validators.required
-      ]),
+        // Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])*.{3,10}$/)
+      ])
     });
   }
 
@@ -62,6 +60,19 @@ export class AuthSignUpComponent implements OnInit {
     {
       toggle.is(':checked') ? password.attr('type', 'text'):password.attr('type', 'password');
     });
+  }
+
+  onLoginSubmit() {
+    this.isSubmitted = true;
+
+    let user: IUser = this.form.value;
+
+    if (this.form.valid) {
+      this.auth.signup(user)
+        .subscribe(response =>  alert(response.message + "\nPlease Log In"),
+            error => alert(error.error.error_message)
+        );
+    }
   }
 
   ngOnInit(): void {

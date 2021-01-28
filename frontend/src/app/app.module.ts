@@ -7,6 +7,8 @@ import { AppRoutingModule } from './app-routing/app-routing.module';
 import { NavigationComponent } from './navigation/navigation.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service';
+import { ModalDialogModule } from 'ngx-modal-dialog';
 
 @NgModule({
   declarations: [
@@ -19,8 +21,9 @@ import { HttpClientModule } from '@angular/common/http';
     AuthModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    ModalDialogModule.forRoot()
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

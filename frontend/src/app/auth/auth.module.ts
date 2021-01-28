@@ -7,6 +7,7 @@ import { AuthService } from './auth.service';
 import { HttpClient } from '@angular/common/http';
 import { AppRoutingModule } from '../app-routing/app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { BrowserModule } from '@angular/platform-browser';
   ],
   providers: [
     AuthService,
-    HttpClient
+    HttpClient,
+    CookieService
   ]
 })
 export class AuthModule { }
