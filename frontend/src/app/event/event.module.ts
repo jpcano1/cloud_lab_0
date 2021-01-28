@@ -8,6 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { EventService } from './event.service';
 import { HttpClientModule } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { CookieService } from 'ngx-cookie-service';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule
   ],
   providers: [EventService, CookieService]
 })

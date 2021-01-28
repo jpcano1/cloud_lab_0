@@ -39,8 +39,7 @@ export class AuthService {
   }
 
   logout() {
-    this.cookie.delete("token");
-    this.cookie.delete("password");
+    this.cookie.deleteAll();
     this.setRole("GUEST");
     this.router.navigateByUrl("/")
       .then(result => console.log(result))

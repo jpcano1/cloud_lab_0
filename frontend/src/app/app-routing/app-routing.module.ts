@@ -5,7 +5,8 @@ import { AuthSignUpComponent } from '../auth/auth-sign-up/auth-sign-up.component
 import { AuthLoginComponent } from '../auth/auth-login/auth-login.component';
 import { EventListComponent } from '../event/event-list/event-list.component';
 import { NgxPermissionsGuard } from 'ngx-permissions';
-import {EventCreateComponent} from '../event/event-create/event-create.component';
+import { EventCreateComponent } from '../event/event-create/event-create.component';
+import { EventDetailComponent } from '../event/event-detail/event-detail.component';
 
 const routes: Routes = [
   {
@@ -47,6 +48,10 @@ const routes: Routes = [
       {
         path: "create",
         component: EventCreateComponent
+      },
+      {
+        path: ":id",
+        component: EventDetailComponent
       }
     ],
     canActivate: [NgxPermissionsGuard],

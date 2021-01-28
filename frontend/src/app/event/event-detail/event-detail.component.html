@@ -1,1 +1,16 @@
-<p>event-detail works!</p>
+<div class="container mt-2">
+  <div class="row justify-content-center align-items-center">
+    <div class="col">
+      <div class="card text-center">
+        <div class="card-body">
+          <h5 class="card-title">{{ event.name }}</h5>
+          <p class="card-text">{{ event.address }}</p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">From {{ event.begin_date }} to {{ event.end_date }}</li>
+          <li class="list-group-item">The {{ event.category }} is {{ event.virtual? '': 'not' }} virtual</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
