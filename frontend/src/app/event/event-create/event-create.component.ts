@@ -75,16 +75,18 @@ export class EventCreateComponent implements OnInit {
       ...this.eventForm.value
     }
 
-    this.eventService.createEvents(formValue)
-      .subscribe(response => {
-        alert("Event Created")
-      }, error => {
-        if (error.error.error_message) {
-          alert(error.error.error_message);
-        } else if (error.error.msg) {
-          alert(error.error.msg);
-        }
-      });
+    if (this.eventForm.valid) {
+      this.eventService.createEvents(formValue)
+        .subscribe(response => {
+          alert("Event Created")
+        }, error => {
+          if (error.error.error_message) {
+            alert(error.error.error_message);
+          } else if (error.error.msg) {
+            alert(error.error.msg);
+          }
+        });
+    }
   }
 
   get valuesArray() {

@@ -1,1 +1,59 @@
-<p>event-update works!</p>
+<div class="container-fluid m-3">
+  <div class="row justify-content-center align-items-center">
+    <div class="col-6">
+      <form [formGroup]="eventForm">
+        <div>Create Event</div>
+        <div class="mb-3">
+          <label for="name" class="form-label">Name</label>
+          <input type="email" formControlName="name" [placeholder]="event.name"
+                 class="form-control" id="name" aria-describedby="emailHelp">
+          <div *ngIf="validateField('name')">
+            <span class="mt-1" style="color: red">Submit a valid name</span>
+          </div>
+        </div>
+        <div class="mb-3">
+          <div>Category</div>
+          <div class="form-check" *ngFor="let category of categories">
+            <input class="form-check-input cat" type="radio" name="event_type"
+                   id="{{ category }}" [checked]="category == event.category">
+            <label class="form-check-label" for="{{ category }}">
+              {{ category }}
+            </label>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="begin_date" class="form-label">Begin Date</label>
+          <input formControlName="begin_date" type="email" [placeholder]="event.begin_date"
+                 class="form-control" id="begin_date" aria-describedby="emailHelp">
+          <div *ngIf="validateField('begin_date')">
+            <span class="mt-1" style="color: red">Submit a valid date</span>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="end_date" class="form-label">End Date</label>
+          <input formControlName="end_date" type="email" [placeholder]="event.end_date"
+                 class="form-control" id="end_date" aria-describedby="emailHelp">
+          <div *ngIf="validateField('end_date')">
+            <span class="mt-1" style="color: red">Submit a valid date</span>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="address" class="form-label">Address</label>
+          <input formControlName="address" type="text" [placeholder]="event.address"
+                 class="form-control" id="address">
+          <div *ngIf="validateField('address')">
+            <span class="mt-1" style="color: red">Submit a valid address</span>
+          </div>
+        </div>
+        <div class="mb-3 form-check">
+          <input type="checkbox" class="form-check-input" id="virtual" [checked]="event.virtual">
+          <label class="form-check-label" for="virtual">Virtual?</label>
+        </div>
+        <button (click)="submitForm()" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>

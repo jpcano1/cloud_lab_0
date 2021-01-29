@@ -7,6 +7,7 @@ import { EventListComponent } from '../event/event-list/event-list.component';
 import { NgxPermissionsGuard } from 'ngx-permissions';
 import { EventCreateComponent } from '../event/event-create/event-create.component';
 import { EventDetailComponent } from '../event/event-detail/event-detail.component';
+import { EventUpdateComponent } from '../event/event-update/event-update.component';
 
 const routes: Routes = [
   {
@@ -34,8 +35,8 @@ const routes: Routes = [
     canActivate: [NgxPermissionsGuard],
     data: {
       permissions: {
-        only: ["USER"]
-      }
+        only: ["USER"],
+      },
     },
   },
   {
@@ -51,7 +52,16 @@ const routes: Routes = [
       },
       {
         path: ":id",
-        component: EventDetailComponent
+        children: [
+          {
+            path: "",
+            component: EventDetailComponent
+          },
+          {
+            path: "edit",
+            component: EventUpdateComponent
+          }
+        ],
       }
     ],
     canActivate: [NgxPermissionsGuard],
