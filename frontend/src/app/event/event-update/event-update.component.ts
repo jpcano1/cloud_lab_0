@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { EventService } from '../event.service';
 import * as $ from "jquery";
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-event-update',
@@ -23,7 +23,8 @@ export class EventUpdateComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private route: ActivatedRoute,
-              private eventService: EventService) {
+              private eventService: EventService,
+              private router: Router) {
     this.eventForm = formBuilder.group({
       name: new FormControl(""),
       begin_date: new FormControl("", [
@@ -85,6 +86,8 @@ export class EventUpdateComponent implements OnInit {
           alert(error.error.msg);
         }
       });
+    this.router.navigateByUrl("event")
+      .then(result => result);
   }
 
   ngOnInit(): void {
