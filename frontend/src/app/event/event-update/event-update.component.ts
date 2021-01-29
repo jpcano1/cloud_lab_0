@@ -25,20 +25,14 @@ export class EventUpdateComponent implements OnInit {
               private route: ActivatedRoute,
               private eventService: EventService) {
     this.eventForm = formBuilder.group({
-      name: new FormControl("", [
-        Validators.required
-      ]),
+      name: new FormControl(""),
       begin_date: new FormControl("", [
-        Validators.required,
         Validators.pattern(/((\d{2})|(\d))\/((\d{2})|(\d))\/((\d{4})|(\d{2}))/)
       ]),
       end_date: new FormControl("", [
-        Validators.required,
         Validators.pattern(/((\d{2})|(\d))\/((\d{2})|(\d))\/((\d{4})|(\d{2}))/)
       ]),
-      address: new FormControl("", [
-        Validators.required
-      ])
+      address: new FormControl("")
     })
   }
 
