@@ -15,6 +15,9 @@ class ProductionConfig(Config):
     POSTGRES_HOST = os.getenv("POSTGRES_HOST")
     POSTGRES_DB = os.getenv("POSTGRES_DB")
 
+    SECRET_KEY = os.getenv("SECRET_KEY", None)
+    SECURITY_PASSWORD_SALT = os.getenv("SECURITY_PASSWORD_SALT", None)
+
     SQLALCHEMY_DATABASE_URI = f"postgresql://{POSTGRES_USERNAME}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:5432/{POSTGRES_DB}"
 
     MAIL_DEFAULT_SENDER = os.getenv("EMAIL_SENDER")
@@ -31,8 +34,9 @@ class DevelopmentConfig(Config):
     SQLALCHEMY_ECHO = False
     SQLITE_DB = os.getenv("SQLITE_DB", "example.db")
     SQLALCHEMY_DATABASE_URI = "sqlite:///" + os.path.abspath(SQLITE_DB)
-    SECRET_KEY = os.getenv("SECRET_KEY", None)
-    SECURITY_PASSWORD_SALT = os.getenv("SECURITY_PASSWORD_SALT", None)
+
+    SECRET_KEY = "cfiG7j1LOu"
+    SECURITY_PASSWORD_SALT = "DukVKGDuJk"
 
     MAIL_DEFAULT_SENDER = os.getenv("EMAIL_SENDER")
     MAIL_SERVER = os.getenv("EMAIL_SERVER")
