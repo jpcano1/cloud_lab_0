@@ -8,6 +8,7 @@ class Config(object):
     TESTING = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     UPLOAD_FOLDER = "images"
+    PROPAGATE_EXCEPTIONS = True
 
 class ProductionConfig(Config):
     POSTGRES_USERNAME = os.getenv("POSTGRES_USER")
