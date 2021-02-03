@@ -20,11 +20,11 @@ export class AuthSignUpComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private auth: AuthService) {
     this.form = this.formBuilder.group({
-      email: new FormControl('juan@hotmail.com', [
+      email: new FormControl('', [
         Validators.required,
         Validators.pattern(/^([\w\-\.]+)@((\[([0-9]{1,3}\.){3}[0-9]{1,3}\])|(([\w\-]+\.)+)([a-zA-Z]{2,4}))$/)
       ]),
-      password: new FormControl('hola', [
+      password: new FormControl('', [
         Validators.required,
         // Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])*.{3,10}$/)
       ])

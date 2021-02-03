@@ -21,18 +21,18 @@ export class EventCreateComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private eventService: EventService) {
     this.eventForm = formBuilder.group({
-      name: new FormControl("AgroExpo", [
+      name: new FormControl("", [
         Validators.required
       ]),
-      begin_date: new FormControl("21/1/2021", [
+      begin_date: new FormControl("", [
         Validators.required,
         Validators.pattern(/((\d{2})|(\d))\/((\d{2})|(\d))\/((\d{4})|(\d{2}))/)
       ]),
-      end_date: new FormControl("21/2/2021", [
+      end_date: new FormControl("", [
         Validators.required,
         Validators.pattern(/((\d{2})|(\d))\/((\d{2})|(\d))\/((\d{4})|(\d{2}))/)
       ]),
-      address: new FormControl("Corferias", [
+      address: new FormControl("", [
         Validators.required
       ])
     })

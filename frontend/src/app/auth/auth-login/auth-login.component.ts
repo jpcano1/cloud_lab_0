@@ -23,10 +23,10 @@ export class AuthLoginComponent implements OnInit {
               private router: Router) {
     let password = this.cookie.get("password");
     this.form = this.formBuilder.group({
-      email: new FormControl('juan@hotmail.com', [
+      email: new FormControl('', [
         Validators.required,
       ]),
-      password: new FormControl( password? password: 'hola', [
+      password: new FormControl( password? password: '', [
         Validators.required,
       ])
     });
